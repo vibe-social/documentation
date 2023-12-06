@@ -1,8 +1,10 @@
+![Vibe Social](./images/la)
+
 # Vibe Social
 ### Računalniške Storitve v Oblaku, UL FRI, Ljubljana 2023
 
 _Avtorji:_
-- _Conradi, Matic — TODO@student.uni-lj.si_
+- _Conradi, Matic — mc3432@student.uni-lj.si_
 - _Mokotar, Rok — rm6551@student.uni-lj.si_
 
 ## Opis Projekta
