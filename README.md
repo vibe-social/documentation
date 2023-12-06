@@ -17,7 +17,7 @@ Ključne funkcije:
 
 - Izrazite se: posnemite in delite svoje trenutno vzdušje s svetom. Ne glede na to, ali se počutite veselo, navdihnjeno ali razmišljate, uporabite Vibe Social, da prenesete svoja čustva na način, ki ga same besede ne morejo zajeti.
 
-- Vibe trenutki: delite živahne trenutke svojega življenja s fotografijami, videoposnetki, izrezki ali pa preprostimi TODO. Naš intuitivni vmesnik vam omogoča, da prilagodite svoje vibe objave s filtri, nalepkami in še več, s čimer zagotovite, da vaša osebnost zasije.
+- Vibe trenutki: delite živahne trenutke svojega življenja s fotografijami, videoposnetki, izrezki ali pa preprostimi *vzduški*. Naš intuitivni vmesnik vam omogoča, da prilagodite svoje vibe objave s filtri, nalepkami in še več, s čimer zagotovite, da vaša osebnost zasije.
 
 - Povežite se s podobno mislečimi dušami: odkrijte in se povežite z ljudmi, ki odmevajo z vašimi vibracijami. Ustvarite pomembne povezave s posamezniki, ki si delijo podobne interese, izkušnje in čustva.
 
@@ -47,13 +47,11 @@ Sheme vseh tabel podatkovne baze Supabase so dostopne v repozitoriju [podatkovne
 
 Projekt je sestavljen iz večih mikrostoritev, pri čemer vsaka služi svojemu namenu. Nekatere mikrostoritve služijo ekstrakciji, zbiranju in transformiranju podatkov namenjenih kasnejši analizi, druge služijo povezavi in upravljanju zunanjih storitev, tretje pa služijo delovanje aplikacije. Vse mikrostoritve delujejo znotraj platforme [Kubernetes](https://kubernetes.io/), ki je nameščena na ponudniku oblačnih storitev [Azure](https://azure.microsoft.com/en-us). 
 
-Za namestitev in konfiguracijo infrastrukture smo uporabili orodje [Terraform](https://www.terraform.io/), ki je dostopno v repozitoriju [infrastruktura](https://github.com/vibe-social/infrastructure).
-
-TODO - omeni cloud native principe - CI/CD, logi, metrike, prikaz vsega (poglej ucilnica)
+Za namestitev in konfiguracijo infrastrukture smo uporabili orodje [Terraform](https://www.terraform.io/), ki je dostopno v repozitoriju [infrastruktura](https://github.com/vibe-social/infrastructure). Prav tako smo se pri razvoju projekta držali dobrih praks razvoja programske opreme.
 
 Mikrostoritve so:
-
-- TODO
+- **Mikrostoritev sledenja in zbiranja dogodkov**: naloga mikrostoritve je sprejemanje dogodkov uporabnika. Na ta načih bomo kasneje lahko analizirali kako se kateri uporabnik počuti, ali njegovo počutje vplivajo kakšni zunanji dejavniki, ali je kakšna povezava med tem, kako se uporabnik počuti in kako se počutijo uporabniki katerim sledi, itd. Torej, namen omenjene mikrostoritve je zbiranje podatkov, na podlagi katerih bomo lahko kasneje analizirali uporabnike, dogodgke uporabnikov in tudi bolj splošne stvari.
+- **Mikrostoritev upravljanja plačevanja**: naloga mikrostoritve je upravljanje plačevanja s plačilnim sistemov [Stripe](https://stripe.com/en-gb-si). Uporabniki bodo imeli možnost kupiti storitve znotraj aplikacije. Le te bodo lahko plačali preko storitve stripe.
 
 ### Uporabniški vmesnik
 
@@ -61,7 +59,7 @@ Projekt trenutno vsebuje spletni in mobilni uporabniški vmesnik spisan v knjiž
 
 ## Arhitektura
 
-TODO - dodaj sliko celotne arhitekture
+![Arhitektura](https://raw.githubusercontent.com/vibe-social/documentation/main/images/architecture.png)
 
 > **_Opomba:_** Opis projekta predstavlja cilj, ki smo si ga zadali. Od te točke dalje opisujemo le stvari, ki so bile zahtevane, da jih naredimo do mejnika 1. Preostalo bomo implementirali kasneje.
 
@@ -69,19 +67,19 @@ TODO - dodaj sliko celotne arhitekture
 
 Mikrostoritev sledenja in zbiranja dogodkov:
 
-- TODO
+- Pridobi seznam dogodkov `GET /events`
+- Pridobi specifičen dogodek `GET /events:id`
+- Ustvari dogodek `POST /events`
+- Posodobi dogodek `PATCH /events`
+- Izbriši dogodek `DELETE /events`
 
 Mikrostoritev upravljanja plačevanja:
 
-- TODO
+- Odzovi se na plačilni dogodek `POST /webhook`
 
 ## Uporabne povezave
 
-Celoten **zaledni del** aplikacije je na voljo na: [https://github.com/vibe-social](https://github.com/vibe-social), pri čemer so storitve dostopne preko sledečih poti:
-
-- TODO (event-tracking - URL)
-
-Celoten **repozitorij slik** vsebnikov Docker je dostopen na: [https://hub.docker.com/u/vibesocial](https://hub.docker.com/u/vibesocial)
+Celoten **zaledni del** aplikacije je na voljo na: [https://github.com/vibe-social](https://github.com/vibe-social), **repozitorij slik** vsebnikov Docker pa je dostopen na: [https://hub.docker.com/u/vibesocial](https://hub.docker.com/u/vibesocial).
 
 Povezave do **GitHub** repozitorijev:
 
