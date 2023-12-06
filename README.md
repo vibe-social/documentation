@@ -39,7 +39,7 @@ Projekt je sestavljen iz treh glavnih komponent, in sicer iz podatkovnih baz, za
 
 ### Podatkovne baze
 
-Projekt uporablja dve različni podatkovni bazi, in sicer [Supabase](https://supabase.com/) za hrambo podatkov, ki jih aplikacija potrebuje za njeno delovanje, in podatkovno skladišče [Azure Synapse Analytics](https://azure.microsoft.com/en-us/products/synapse-analytics) za hrambo velike količine podatkov namenjeni analizi.
+Projekt uporablja dve različni podatkovni bazi, in sicer [Supabase](https://supabase.com/) za hrambo podatkov, ki jih aplikacija potrebuje za njeno delovanje, in podatkovno skladišče [Azure Data Lake Storage](https://azure.microsoft.com/en-us/products/storage/data-lake-storage) za hrambo velike količine podatkov namenjeni analizi.
 
 Sheme vseh tabel podatkovne baze Supabase so dostopne v repozitoriju [podatkovne baze](https://github.com/vibe-social/database), med tem ko pa je struktura podatkovnega skladišča definirana v repozitoriju [infrastruktura](https://github.com/vibe-social/infrastructure).
 
