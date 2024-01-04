@@ -17,7 +17,7 @@ Ključne funkcije:
 
 - Izrazite se: posnemite in delite svoje trenutno vzdušje s svetom. Ne glede na to, ali se počutite veselo, navdihnjeno ali razmišljate, uporabite Vibe Social, da prenesete svoja čustva na način, ki ga same besede ne morejo zajeti.
 
-- Vibe trenutki: delite živahne trenutke svojega življenja s fotografijami, videoposnetki, izrezki ali pa preprostimi *vzduški*. Naš intuitivni vmesnik vam omogoča, da prilagodite svoje vibe objave s filtri, nalepkami in še več, s čimer zagotovite, da vaša osebnost zasije.
+- Vibe trenutki: delite živahne trenutke svojega življenja s fotografijami, videoposnetki, izrezki ali pa preprostimi _vzduški_. Naš intuitivni vmesnik vam omogoča, da prilagodite svoje vibe objave s filtri, nalepkami in še več, s čimer zagotovite, da vaša osebnost zasije.
 
 - Povežite se s podobno mislečimi dušami: odkrijte in se povežite z ljudmi, ki odmevajo z vašimi vibracijami. Ustvarite pomembne povezave s posamezniki, ki si delijo podobne interese, izkušnje in čustva.
 
@@ -45,11 +45,12 @@ Sheme vseh tabel podatkovne baze Supabase so dostopne v repozitoriju [podatkovne
 
 ### Zaledne mikrostoritve
 
-Projekt je sestavljen iz večih mikrostoritev, pri čemer vsaka služi svojemu namenu. Nekatere mikrostoritve služijo ekstrakciji, zbiranju in transformiranju podatkov namenjenih kasnejši analizi, druge služijo povezavi in upravljanju zunanjih storitev, tretje pa služijo delovanje aplikacije. Vse mikrostoritve delujejo znotraj platforme [Kubernetes](https://kubernetes.io/), ki je nameščena na ponudniku oblačnih storitev [Azure](https://azure.microsoft.com/en-us). 
+Projekt je sestavljen iz večih mikrostoritev, pri čemer vsaka služi svojemu namenu. Nekatere mikrostoritve služijo ekstrakciji, zbiranju in transformiranju podatkov namenjenih kasnejši analizi, druge služijo povezavi in upravljanju zunanjih storitev, tretje pa služijo delovanje aplikacije. Vse mikrostoritve delujejo znotraj platforme [Kubernetes](https://kubernetes.io/), ki je nameščena na ponudniku oblačnih storitev [Azure](https://azure.microsoft.com/en-us).
 
 Za namestitev in konfiguracijo infrastrukture smo uporabili orodje [Terraform](https://www.terraform.io/), ki je dostopno v repozitoriju [infrastruktura](https://github.com/vibe-social/infrastructure). Prav tako smo se pri razvoju projekta držali dobrih praks razvoja programske opreme.
 
 Mikrostoritve so:
+
 - **Mikrostoritev sledenja in zbiranja dogodkov**: naloga mikrostoritve je sprejemanje dogodkov uporabnika. Na ta načih bomo kasneje lahko analizirali kako se kateri uporabnik počuti, ali njegovo počutje vplivajo kakšni zunanji dejavniki, ali je kakšna povezava med tem, kako se uporabnik počuti in kako se počutijo uporabniki katerim sledi, itd. Torej, namen omenjene mikrostoritve je zbiranje podatkov, na podlagi katerih bomo lahko kasneje analizirali uporabnike, dogodgke uporabnikov in tudi bolj splošne stvari.
 - **Mikrostoritev upravljanja plačevanja**: naloga mikrostoritve je upravljanje plačevanja s plačilnim sistemov [Stripe](https://stripe.com/en-gb-si). Uporabniki bodo imeli možnost kupiti storitve znotraj aplikacije. Le te bodo lahko plačali preko storitve stripe.
 
@@ -61,7 +62,22 @@ Projekt trenutno vsebuje spletni in mobilni uporabniški vmesnik spisan v knjiž
 
 ![Arhitektura](https://raw.githubusercontent.com/vibe-social/documentation/main/images/architecture.png)
 
-> **_Opomba:_** Opis projekta predstavlja cilj, ki smo si ga zadali. Od te točke dalje opisujemo le stvari, ki so bile zahtevane, da jih naredimo do mejnika 1. Preostalo bomo implementirali kasneje.
+> **_Opomba:_** Opis projekta predstavlja cilj, ki smo si ga zadali. Od te točke dalje opisujemo le stvari, ki so bile zahtevane, da jih naredimo. Preostalo bomo morda implementirali kasneje.
+
+## Zahteve
+
+- Arhitekturno zasnovo aplikacije. Kvaliteto rešitve danega problema in vsebinsko ustreznost razvitih mikrostoritev. Število razvitih mikrostoritev. Vsak član skupine mora razviti dve mikrostoritvi. (24T)
+- Dokumentiranje storitev z uporabo OpenAPI (vključitev UI in dokumentacija dostopna na naslovu /openapi). (6T)
+- Zvezno integracijo in Kubernetes (ingress ipd.). (18T)
+- Uporaba virov konfiguracije v projektu (okoljske spremenljivke in konfiguracijska datoteka). (6T)
+- Kontrole zdravja. Za vsakega člana skupine implementirate en vrsto kontrole zdravja. Zadostuje, da kontrole zdravja implementirate na eni mikrostoritvi. (3T) Smiselna vključitev kontrole zdravja po meri prinese 3 dodatne točke.
+- Zbiranje metrik. Za vsakega člana skupine implementirate eno vrsto metrike. Metrike JVM, ki se že privzeto zbirajo, ne štejejo. Zadostuje, da zbiranje metrik implementirate na eni mikrostoritvi. (3T)
+- Uporaba zunanjih API-jev. Za vsakega člana v rešitev smiselno vključite en zunanji API in argumentirajte izbiro. (6T)
+- Uporaba naprednih komunikacijskih protokolov. Vključite GraphQL (Za vsakega člana skupine vključite en primer uporabe). (6T)
+- Vključite centralizirano beleženja dnevnikov. Za vsakega člana skupine pripravite en primer zanimive poizvedbe po dnevnikih. Nadalje še demonstrirajte sledenje zahtevkov pri obdelavi na različnih mikrostoritvah. (12T)
+- V eno mikrostoritev vključite izolacijo in toleranco napak. Pripravite demonstracijo mehanizmov na primeru. Ocenjuje se tudi razumevanje primera, ki ste ga vključili v vašo rešitev. (12T)
+- Predstavitev (delujoč UI, primeri uporabe, funkcionalnosti) (12T)
+- Opcijske naloge (dodatne točke): konfiguracijski strežnik (12T), vključitev naprednih komunikacijskih protokolov na izbranih primerih - asinhron REST (6T) in gRPC (6T), Kafka (12T).
 
 ## Seznam končnih točk
 
