@@ -1,6 +1,6 @@
-<mxfile modified="2023-12-29T11:42:16.075Z" host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0" etag="R6G_1vaLWb81C9Pg1JL_" version="22.1.16" type="device">
+<mxfile modified="2024-01-04T19:16:32.717Z" host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0" etag="FV2d2Pdo_m8NejvRHRpJ" version="22.1.16" type="device">
   <diagram id="WI9T0HZ2pTsCkuznbFz-" name="Page-1">
-    <mxGraphModel dx="3088" dy="3130" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="4522" dy="3922" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -146,7 +146,7 @@
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="V6R_he3JDIIV2FoqCVUg-14" value="Service" style="sketch=0;html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];verticalLabelPosition=bottom;align=center;verticalAlign=top;shape=mxgraph.kubernetes.icon;prIcon=svc;fontSize=20;fontFamily=Helvetica;labelBackgroundColor=none;container=0;" parent="1" vertex="1">
+        <mxCell id="V6R_he3JDIIV2FoqCVUg-14" value="Localisatoin service" style="sketch=0;html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];verticalLabelPosition=bottom;align=center;verticalAlign=top;shape=mxgraph.kubernetes.icon;prIcon=svc;fontSize=20;fontFamily=Helvetica;labelBackgroundColor=none;container=0;" parent="1" vertex="1">
           <mxGeometry x="450" y="-830" width="75" height="75" as="geometry" />
         </mxCell>
         <mxCell id="V6R_he3JDIIV2FoqCVUg-149" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.995;exitY=0.63;exitDx=0;exitDy=0;exitPerimeter=0;strokeWidth=3;" parent="1" source="V6R_he3JDIIV2FoqCVUg-16" target="V6R_he3JDIIV2FoqCVUg-29" edge="1">
@@ -164,7 +164,7 @@
         <mxCell id="V6R_he3JDIIV2FoqCVUg-22" value="Azure Kubernetes Service" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=20;image=img/lib/azure2/containers/Kubernetes_Services.svg;fontFamily=Helvetica;labelBackgroundColor=none;container=0;" parent="1" vertex="1">
           <mxGeometry x="170" y="-1520" width="75" height="75" as="geometry" />
         </mxCell>
-        <mxCell id="V6R_he3JDIIV2FoqCVUg-47" value="Service" style="sketch=0;html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];verticalLabelPosition=bottom;align=center;verticalAlign=top;shape=mxgraph.kubernetes.icon;prIcon=svc;fontSize=20;fontFamily=Helvetica;labelBackgroundColor=none;container=0;" parent="1" vertex="1">
+        <mxCell id="V6R_he3JDIIV2FoqCVUg-47" value="Social service" style="sketch=0;html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];verticalLabelPosition=bottom;align=center;verticalAlign=top;shape=mxgraph.kubernetes.icon;prIcon=svc;fontSize=20;fontFamily=Helvetica;labelBackgroundColor=none;container=0;" parent="1" vertex="1">
           <mxGeometry x="450" y="-1060" width="75" height="75" as="geometry" />
         </mxCell>
         <mxCell id="V6R_he3JDIIV2FoqCVUg-48" value="Payment webhooks service" style="sketch=0;html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];verticalLabelPosition=bottom;align=center;verticalAlign=top;shape=mxgraph.kubernetes.icon;prIcon=svc;fontSize=20;fontFamily=Helvetica;labelBackgroundColor=none;container=0;" parent="1" vertex="1">
