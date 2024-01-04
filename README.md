@@ -67,17 +67,71 @@ Projekt trenutno vsebuje spletni in mobilni uporabniški vmesnik spisan v knjiž
 ## Zahteve
 
 - Arhitekturno zasnovo aplikacije. Kvaliteto rešitve danega problema in vsebinsko ustreznost razvitih mikrostoritev. Število razvitih mikrostoritev. Vsak član skupine mora razviti dve mikrostoritvi. (24T)
+  - Mikrostoritev sledenja in zbiranja dogodgkov (event-tracking) `/event-tracking`
+  - Mikrostoritev upravljanja plačevanja (payment-webhooks) `/payment-webhooks`
+  - Mikrostoritev za upravljanje deljenja vzdušij (vibe) `/vibe` TODO
+  - Mikrostoritev za odkrivanje lokacij uporabnikov (location-discovery) `/location-discovery` TODO
 - Dokumentiranje storitev z uporabo OpenAPI (vključitev UI in dokumentacija dostopna na naslovu /openapi). (6T)
+  - event-tracking: (`/event-tracking/openapi/index.html`) [TODO](TODO)
+  - payment-webhooks: (`/payment-webhooks/openapi`) [TODO](TODO) TODO
+  - vibe: (`/vibe/openapi`) [TODO](TODO) TODO
+  - location-discovery: (`/location-discovery/openapi`) [TODO](TODO) TODO
 - Zvezno integracijo in Kubernetes (ingress ipd.). (18T)
+  - Z uporabo GitHub akcij smo implementirali zvezno integracijo, ki se izvaja ob vsakem commitu v glavno vejo repozitorija. Zvezna integracija se izvaja v dveh korakih:
+    - Gradnja in objava Docker slik v repozitorij [Docker Hub](https://hub.docker.com/u/vibesocial).
+    - Namestitev in posodobitev Kubernetes storitev na Azure Kubernetes Service.
+  - Celotna Kubernetes gruča je dostopna na naslovu preko Nginx ingress kontrolerja, ki skrbi za usmerjanje zahtevkov na ustrezne storitve.
+  - Pred celotno Kubernetes gručo se nahaja Ayure Application Gateway, ki zagotavlja varnostno plast in omogoča uporabo HTTPS protokola. Prav tako je na Application Gatewayu nameščen WAF (Web Application Firewall), ki skrbi za dodatno varnost.
 - Uporaba virov konfiguracije v projektu (okoljske spremenljivke in konfiguracijska datoteka). (6T)
+  - Zaradi preprostosti smo se odločili, da bomo uporabljali le eno konfiguracijsko datoteko, ki se nahaja v repozitoriju [infrastruktura](TODO). V tej datoteki se nahajajo vse spremenljivke, ki jih potrebujejo mikrostoritve za svoje delovanje. Za lokalni razvoj smo podprli tudi uporabo okoljskih spremenljivk, ki se nahajajo v datoteki `.env` v vsakem repozitoriju.
 - Kontrole zdravja. Za vsakega člana skupine implementirate en vrsto kontrole zdravja. Zadostuje, da kontrole zdravja implementirate na eni mikrostoritvi. (3T) Smiselna vključitev kontrole zdravja po meri prinese 3 dodatne točke.
+  - Kontrole zdravja smo implementirali na vseh mikrostoritvah, pri čemer smo najbol pester in uporaben izbor kontrol implementirali na mikrostoritvi `event-tracking`. Kontrole zdravja so dostopne na naslovu `/health`.
+  - Implementirali smo:
+    - Splošno kontrolo zdravja, ki preverja ali je mikrostoritev dosegljiva (`/health/general`).
+    - Kontrolo zdravja procesorja, ki preverja v kolikšni meri mikrostoritev obremenjuje procesor (`/health/cpu`).
+    - Kontrolo zdravja pomnilnika, ki preverja v kolikšni meri mikrostoritev obremenjuje pomnilnik (`/health/disk`).
+    - Kontrolo zdravja procesov v mikrostoritvi, ki preverja koliko procesov se izvaja v mikrostoritvi in v kakšnem stanju so (`/health/goroutine`).
+    - Kontrolo zdravja podatkovne baze, ki preverja ali je podatkovna baza dosegljiva in pripravljena na sprejemanje zahtevkov (`/health/database`).
+    - Kontrolo zdravja pretočnega sistema Kafka, ki preverja ali je Kafka dosegljiva in pripravljena na sprejemanje zahtevkov (`/health/kafka`).
 - Zbiranje metrik. Za vsakega člana skupine implementirate eno vrsto metrike. Metrike JVM, ki se že privzeto zbirajo, ne štejejo. Zadostuje, da zbiranje metrik implementirate na eni mikrostoritvi. (3T)
+  - Zbiranje metrik smo implementirali na `event-tracking` mikrostoritvi. Vse metrike so dostopne na naslovu `/metrics`. Metrike, ki smo jih implementirali mi, in niso privzete za programski jezik Go, so dostopne na naslovu `/metrics/custom`.
+  - Metrike, ki smo jih implementirali sami so:
+    - Število vseh zahtevkov, ki so bili poslani na mikrostoritev (`http_requests_total`), razdeljeno po metodi, poti in statusu.
+    - Število vseh 2xx zahtevkov, ki so bili poslani na mikrostoritev (`http_requests_2xx_total`), razdeljeno po metodi in poti.
+    - Število vseh 3xx zahtevkov, ki so bili poslani na mikrostoritev (`http_requests_3xx_total`), razdeljeno po metodi in poti.
+    - Število vseh 4xx zahtevkov, ki so bili poslani na mikrostoritev (`http_requests_4xx_total`), razdeljeno po metodi in poti.
+    - Število vseh 5xx zahtevkov, ki so bili poslani na mikrostoritev (`http_requests_5xx_total`), razdeljeno po metodi in poti.
+    - Število bajtov, ki jih mikrostoritev uporablja v pomnilniku (`memory_usage_bytes`).
+    - Število procentov zasedenosti pomnilnika (`memory_usage_percent`).
+    - Število procentov obremenjenosti procesorja (`cpu_usage_percent`).
+    - Število vseh gorutin, ki se izvajajo v mikrostoritvi (`goroutines_total`).
+    - Število niti, ki se izvajajo v mikrostoritvi (`threads_total`).
+    - Število vseh dogodkov, ki so bili poslani na mikrostoritev (`events_total`), razdeljeno po tipu dogodka.
+    - Število trajanja dogodkov, ki so bili poslani na mikrostoritev (`events_duration`), razdeljeno po tipu dogodka.
+    - Števio odprtih povezav na podatkovno bazo (`database_connection_pool`).
+    - Število trajanja queryjev, ki so bili poslani na podatkovno bazo (`database_queries_total`), razdeljeno po tipu queryja.
+    - Število napak, ki so se zgodile pri izvajanju queryjev na podatkovni bazi (`database_errors`), razdeljeno po tipu napake.
+    - Število zahtevkov, ki so bili poslani na Kafko (`kafka_requests`), razdeljeno po topicu.
+    - Število bajtov, ki so bili poslani na Kafko (`kafka_bytes`), razdeljeno po topicu.
+    - Število napak, ki so se zgodile pri pošiljanju podatkov na Kafko (`kafka_errors`), razdeljeno po topicu.
+    - Število latence zahtevkov (`latency`), razdeljeno po metodi, poti in statusu.
 - Uporaba zunanjih API-jev. Za vsakega člana v rešitev smiselno vključite en zunanji API in argumentirajte izbiro. (6T)
+  - Pri mikrostoritvi `payment-webhooks` smo uporabili zunanji API [Stripe](https://stripe.com/en-gb-si), ki nam omogoča upravljanje plačevanja.
+  - Pri mikrostoritvi `vibe` smo uporabili zunanji API [Supabase](https://supabase.com/), ki nam omogoča avtentikacijo uporabnikov in hrambo podatkov.
 - Uporaba naprednih komunikacijskih protokolov. Vključite GraphQL (Za vsakega člana skupine vključite en primer uporabe). (6T)
+  - GraphQL smo uporabili pri mikrostoritvi `vibe`, kjer se uporablja za komunikacijo neposredno z uporabnikom.
+    - Primer uporabe: TODO
 - Vključite centralizirano beleženja dnevnikov. Za vsakega člana skupine pripravite en primer zanimive poizvedbe po dnevnikih. Nadalje še demonstrirajte sledenje zahtevkov pri obdelavi na različnih mikrostoritvah. (12T)
+  - TODO
 - V eno mikrostoritev vključite izolacijo in toleranco napak. Pripravite demonstracijo mehanizmov na primeru. Ocenjuje se tudi razumevanje primera, ki ste ga vključili v vašo rešitev. (12T)
+  - TODO
 - Predstavitev (delujoč UI, primeri uporabe, funkcionalnosti) (12T)
+  - Razvili smo delujočo mobilno aplikacijo, ki je dostopna za vse uporabnike Applovega operacijskega sistema iOS. Aplikacija je dostopna na naslovu [TODO](TODO). Slike uporabniškega vmesnika so dostopne v repozitoriju [documentation](https://github.com/vibe-social/documentation/images).
 - Opcijske naloge (dodatne točke): konfiguracijski strežnik (12T), vključitev naprednih komunikacijskih protokolov na izbranih primerih - asinhron REST (6T) in gRPC (6T), Kafka (12T).
+  - Konfiguracijskega strežnika žal nismo uporabili, saj smo se odločili, da bomo raje uporabili le eno konfiguracijsko datoteko. Prav tako orodja, s katerimi smo razvijali aplikacijo, imajo slabo dokumentirano integracijo konfiguracijskega strežnika.
+  - Asinhron REST smo uporabili pri mikrostoritvi `payment-webhooks`, kjer se uporablja za komunikacijo s storitvijo [Stripe](https://stripe.com/en-gb-si).
+  - Kafka smo uporabili pri mikrostoritvi `event-tracking`, kjer se uporablja za zbiranje dogodkov uporabnikov.
+  - gRPC smo prav tako uporabili pri mikrostoritvi `event-tracking`, kjer se uporablja za zbiranje dogodkov uporabnikov.
 
 ## Seznam končnih točk
 
