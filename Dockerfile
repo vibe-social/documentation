@@ -1,4 +1,4 @@
-FROM python:latest
+FROM python:latest AS build
 
 WORKDIR /app
 
@@ -6,6 +6,15 @@ COPY README.md /app/README.md
 
 RUN pip install grip
 
-EXPOSE 8080
+RUN grip --wide --export --title="Vibe Social" README.md
 
-CMD ["grip", "--title", "", "README.md", "localhost:8080"]
+FROM nginx:latest
+
+WORKDIR /usr/share/nginx/html
+
+COPY --from=build /app/README.html /usr/share/nginx/html/index.html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
+
