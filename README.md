@@ -70,18 +70,18 @@ Projekt trenutno vsebuje spletni in mobilni uporabniški vmesnik spisan v knjiž
   - Mikrostoritev sledenja in zbiranja dogodgkov (event-tracking) `/event-tracking`
   - Mikrostoritev upravljanja plačevanja (payment-webhooks) `/payment-webhooks`
   - Mikrostoritev za upravljanje deljenja vzdušij (vibe) `/vibe` TODO
-  - Mikrostoritev za odkrivanje lokacij uporabnikov (location-discovery) `/location-discovery` TODO
+  - Mikrostoritev za odkrivanje lokacij uporabnikov (location-discovery) `/location-discovery`
 - Dokumentiranje storitev z uporabo OpenAPI (vključitev UI in dokumentacija dostopna na naslovu /openapi). (6T)
   - event-tracking: (`/event-tracking/openapi/index.html`) [TODO](TODO)
-  - payment-webhooks: (`/payment-webhooks/openapi`) [TODO](TODO) TODO
-  - vibe: (`/vibe/openapi`) [TODO](TODO) TODO
-  - location-discovery: (`/location-discovery/openapi`) [TODO](TODO) TODO
+  - payment-webhooks: (`/payment-webhooks/openapi`) [TODO](TODO) TODO (@MaticConradi)
+  - vibe: (`/vibe/openapi`) [TODO](TODO) TODO (@MaticConradi)
+  - location-discovery: (`/location-discovery/openapi`) [TODO](TODO)
 - Zvezno integracijo in Kubernetes (ingress ipd.). (18T)
   - Z uporabo GitHub akcij smo implementirali zvezno integracijo, ki se izvaja ob vsakem commitu v glavno vejo repozitorija. Zvezna integracija se izvaja v dveh korakih:
     - Gradnja in objava Docker slik v repozitorij [Docker Hub](https://hub.docker.com/u/vibesocial).
     - Namestitev in posodobitev Kubernetes storitev na Azure Kubernetes Service.
-  - Celotna Kubernetes gruča je dostopna na naslovu preko Nginx ingress kontrolerja, ki skrbi za usmerjanje zahtevkov na ustrezne storitve.
-  - Pred celotno Kubernetes gručo se nahaja Ayure Application Gateway, ki zagotavlja varnostno plast in omogoča uporabo HTTPS protokola. Prav tako je na Application Gatewayu nameščen WAF (Web Application Firewall), ki skrbi za dodatno varnost.
+  - Celotna Kubernetes gruča je dostopna na naslovu preko Nginx ingress kontrolerja, ki skrbi za usmerjanje zahtevkov na ustrezne storitve. IP naslov ingress kontrolerja je: [TODO](TODO).
+  - Pred celotno Kubernetes gručo se nahaja Azure Application Gateway, ki zagotavlja varnostno plast in omogoča uporabo HTTPS protokola. Prav tako je na Application Gatewayu nameščen WAF (Web Application Firewall), ki skrbi za dodatno varnost.
 - Uporaba virov konfiguracije v projektu (okoljske spremenljivke in konfiguracijska datoteka). (6T)
   - Zaradi preprostosti smo se odločili, da bomo uporabljali le eno konfiguracijsko datoteko, ki se nahaja v repozitoriju [infrastruktura](TODO). V tej datoteki se nahajajo vse spremenljivke, ki jih potrebujejo mikrostoritve za svoje delovanje. Za lokalni razvoj smo podprli tudi uporabo okoljskih spremenljivk, ki se nahajajo v datoteki `.env` v vsakem repozitoriju.
 - Kontrole zdravja. Za vsakega člana skupine implementirate en vrsto kontrole zdravja. Zadostuje, da kontrole zdravja implementirate na eni mikrostoritvi. (3T) Smiselna vključitev kontrole zdravja po meri prinese 3 dodatne točke.
@@ -115,23 +115,32 @@ Projekt trenutno vsebuje spletni in mobilni uporabniški vmesnik spisan v knjiž
     - Število bajtov, ki so bili poslani na Kafko (`kafka_bytes`), razdeljeno po topicu.
     - Število napak, ki so se zgodile pri pošiljanju podatkov na Kafko (`kafka_errors`), razdeljeno po topicu.
     - Število latence zahtevkov (`latency`), razdeljeno po metodi, poti in statusu.
+  - Metrike zbiramo s pomočjo knjižnice [Prometheus](https://prometheus.io/) in jih nato vizualiziramo s pomočjo orodja [Grafana](https://grafana.com/). Grafana je dostopna na naslovu [TODO](TODO). Metrike prav tako prikazujemo na nadzorni plošči Azure Monitor.
 - Uporaba zunanjih API-jev. Za vsakega člana v rešitev smiselno vključite en zunanji API in argumentirajte izbiro. (6T)
   - Pri mikrostoritvi `payment-webhooks` smo uporabili zunanji API [Stripe](https://stripe.com/en-gb-si), ki nam omogoča upravljanje plačevanja.
   - Pri mikrostoritvi `vibe` smo uporabili zunanji API [Supabase](https://supabase.com/), ki nam omogoča avtentikacijo uporabnikov in hrambo podatkov.
+  - Pri mikrostoritvi `location-discovery` smo uporabili zunanji API [IP2Location](https://www.ip2location.com/), ki nam omogoča pridobivanje podatkovnih baz o IP naslovih, ki jih mi nato uporabimo za pridobivanje lokacij uporabnikov.
 - Uporaba naprednih komunikacijskih protokolov. Vključite GraphQL (Za vsakega člana skupine vključite en primer uporabe). (6T)
   - GraphQL smo uporabili pri mikrostoritvi `vibe`, kjer se uporablja za komunikacijo neposredno z uporabnikom.
     - Primer uporabe: TODO
 - Vključite centralizirano beleženja dnevnikov. Za vsakega člana skupine pripravite en primer zanimive poizvedbe po dnevnikih. Nadalje še demonstrirajte sledenje zahtevkov pri obdelavi na različnih mikrostoritvah. (12T)
   - TODO
 - V eno mikrostoritev vključite izolacijo in toleranco napak. Pripravite demonstracijo mehanizmov na primeru. Ocenjuje se tudi razumevanje primera, ki ste ga vključili v vašo rešitev. (12T)
-  - TODO
+  - Pri mirkosoritvi `event-tracking` smo implementirali izolacijo in toleranco napak. V primeru, da se mikrostoritev ne odziva, se bo samodejno ponovno zagnala. Prav tako se bo samodejno ponovno zagnala v primeru, da se bo mikrostoritev sesula. Prav tako zagotavljamo visoko razpoložljivost mikrostoritve, saj je ta nameščena na Kubernetes gruči, ki se samodejno širi in krči glede na obremenitev, pri čemer sta vedno aktivni vsaj dve instanci mikrostoritve. V tej mikrostoritvi smo prav tako implementirali mehanizem za ponovno pošiljanje dogodkov, ki se niso uspešno poslali na Kafko ali v podatkovno bazo. Dodali smo tudi prekinjevalce toka, ki v primeru, da se mikrostoritev sesuje, prekinejo tok dogodkov, ki se pošiljajo na Kafko ali v podatkovno bazo. V primeru, da se mikrostoritev sesuje, se prekinjevalci toka samodejno ponovno zgradijo in ponovno vzpostavijo tok dogodkov. Za konec pa smo na ravni mikrostoritve definirali še časovno omejitev zahtevkov, ki se pošiljajo na Kafko in v podatkovno bazo. V primeru, da se zahtevki ne obdelajo v določenem času, se prekinejo in ponovno pošljejo.
 - Predstavitev (delujoč UI, primeri uporabe, funkcionalnosti) (12T)
   - Razvili smo delujočo mobilno aplikacijo, ki je dostopna za vse uporabnike Applovega operacijskega sistema iOS. Aplikacija je dostopna na naslovu [TODO](TODO). Slike uporabniškega vmesnika so dostopne v repozitoriju [documentation](https://github.com/vibe-social/documentation/images).
 - Opcijske naloge (dodatne točke): konfiguracijski strežnik (12T), vključitev naprednih komunikacijskih protokolov na izbranih primerih - asinhron REST (6T) in gRPC (6T), Kafka (12T).
   - Konfiguracijskega strežnika žal nismo uporabili, saj smo se odločili, da bomo raje uporabili le eno konfiguracijsko datoteko. Prav tako orodja, s katerimi smo razvijali aplikacijo, imajo slabo dokumentirano integracijo konfiguracijskega strežnika.
   - Asinhron REST smo uporabili pri mikrostoritvi `payment-webhooks`, kjer se uporablja za komunikacijo s storitvijo [Stripe](https://stripe.com/en-gb-si).
-  - Kafka smo uporabili pri mikrostoritvi `event-tracking`, kjer se uporablja za zbiranje dogodkov uporabnikov.
+  - Kafka smo uporabili pri mikrostoritvi `event-tracking`, kjer se uporablja za zbiranje dogodkov uporabnikov. Natančneje, uporabili smo Azure Event Hubs, ki je storitev, ki deluje enako kot Kafka, le da je integrirana v Azure.
   - gRPC smo prav tako uporabili pri mikrostoritvi `event-tracking`, kjer se uporablja za zbiranje dogodkov uporabnikov.
+
+TODO pred zagovorom (Rok):
+
+- postavi infrastrukturo in deployay vse gor
+- AKS - povezi z prometheus in grafano
+- IP - nastavi DNS label name
+- uredi use urlje tak kot mores
 
 ## Seznam končnih točk
 
