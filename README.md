@@ -73,8 +73,8 @@ Projekt trenutno vsebuje spletni in mobilni uporabniški vmesnik spisan v knjiž
   - Mikrostoritev za odkrivanje lokacij uporabnikov (location-discovery) `/location-discovery`
 - Dokumentiranje storitev z uporabo OpenAPI (vključitev UI in dokumentacija dostopna na naslovu /openapi). (6T)
   - event-tracking: (`/event-tracking/openapi/index.html`) [TODO](TODO)
-  - payment-webhooks: (`/payment-webhooks/openapi`) [TODO](TODO) TODO (@MaticConradi)
-  - vibe: (`/vibe/openapi`) [TODO](TODO) TODO (@MaticConradi)
+  - payment-webhooks: (`/payment-webhooks/openapi`)
+  - backend: (`/backend/openapi`)
   - location-discovery: (`/location-discovery/openapi`) [TODO](TODO)
 - Zvezno integracijo in Kubernetes (ingress ipd.). (18T)
   - Z uporabo GitHub akcij smo implementirali zvezno integracijo, ki se izvaja ob vsakem commitu v glavno vejo repozitorija. Zvezna integracija se izvaja v dveh korakih:
