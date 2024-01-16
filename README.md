@@ -60,11 +60,11 @@ Mikrostoritve so:
 
 Projekt vsebuje mobilni uporabniški vmesnik spisan v programskem jeziku [Swift](https://developer.apple.com/swift/), ki nam ponuja razvoj mobilnih aplikacij za operacijski sistem [iOS](https://www.apple.com/ios/). Uporabniški vmesnik je dostopen v repozitoriju [vibe-ios](https://github.com/vibe-social/ios).
 
-![User Interface 1](https://raw.githubusercontent.com/vibe-social/documentation/main/images/ui-1.png)
-![User Interface 2](https://raw.githubusercontent.com/vibe-social/documentation/main/images/ui-2.png)
-![User Interface 3](https://raw.githubusercontent.com/vibe-social/documentation/main/images/ui-3.png)
-![User Interface 4](https://raw.githubusercontent.com/vibe-social/documentation/main/images/ui-4.png)
-![User Interface 5](https://raw.githubusercontent.com/vibe-social/documentation/main/images/ui-5.png)
+<img src="https://raw.githubusercontent.com/vibe-social/documentation/main/images/ui-1.png" alt="User Interface 1" width="49%"/>
+<img src="https://raw.githubusercontent.com/vibe-social/documentation/main/images/ui-2.png" alt="User Interface 2" width="49%"/>
+
+<img src="https://raw.githubusercontent.com/vibe-social/documentation/main/images/ui-3.png" alt="User Interface 3" width="49%"/>
+<img src="https://raw.githubusercontent.com/vibe-social/documentation/main/images/ui-4.png" alt="User Interface 4" width="49%"/>
 
 ## Arhitektura
 
