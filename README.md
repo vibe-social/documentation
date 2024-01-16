@@ -135,13 +135,6 @@ Projekt trenutno vsebuje spletni in mobilni uporabniški vmesnik spisan v knjiž
   - Kafka smo uporabili pri mikrostoritvi `event-tracking`, kjer se uporablja za zbiranje dogodkov uporabnikov. Natančneje, uporabili smo Azure Event Hubs, ki je storitev, ki deluje enako kot Kafka, le da je integrirana v Azure.
   - gRPC smo prav tako uporabili pri mikrostoritvi `event-tracking`, kjer se uporablja za zbiranje dogodkov uporabnikov.
 
-TODO pred zagovorom (Rok):
-
-- postavi infrastrukturo in deployay vse gor
-- AKS - povezi z prometheus in grafano
-- IP - nastavi DNS label name
-- uredi use urlje tak kot mores
-
 ## Seznam končnih točk
 
 Mikrostoritev sledenja in zbiranja dogodkov:
