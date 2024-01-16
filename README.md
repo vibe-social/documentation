@@ -60,7 +60,11 @@ Mikrostoritve so:
 
 Projekt vsebuje mobilni uporabniški vmesnik spisan v programskem jeziku [Swift](https://developer.apple.com/swift/), ki nam ponuja razvoj mobilnih aplikacij za operacijski sistem [iOS](https://www.apple.com/ios/). Uporabniški vmesnik je dostopen v repozitoriju [vibe-ios](https://github.com/vibe-social/ios).
 
-TODO - dodaj slike
+![User Interface 1](https://raw.githubusercontent.com/vibe-social/documentation/main/images/ui-1.png)
+![User Interface 2](https://raw.githubusercontent.com/vibe-social/documentation/main/images/ui-2.png)
+![User Interface 3](https://raw.githubusercontent.com/vibe-social/documentation/main/images/ui-3.png)
+![User Interface 4](https://raw.githubusercontent.com/vibe-social/documentation/main/images/ui-4.png)
+![User Interface 5](https://raw.githubusercontent.com/vibe-social/documentation/main/images/ui-5.png)
 
 ## Arhitektura
 
@@ -119,7 +123,7 @@ TODO - dodaj slike
     - Število bajtov, ki so bili poslani na Kafko (`kafka_bytes`), razdeljeno po topicu.
     - Število napak, ki so se zgodile pri pošiljanju podatkov na Kafko (`kafka_errors`), razdeljeno po topicu.
     - Število latence zahtevkov (`latency`), razdeljeno po metodi, poti in statusu.
-  - Metrike zbiramo s pomočjo knjižnice [Prometheus](https://prometheus.io/) in jih nato vizualiziramo s pomočjo orodja [Grafana](https://grafana.com/). Grafana je dostopna na naslovu [TODO](TODO).
+  - Metrike zbiramo s pomočjo knjižnice [Prometheus](https://prometheus.io/) in jih nato vizualiziramo s pomočjo orodja [Grafana](https://grafana.com/). Grafana je dostopna na naslovu [https://vibe-social-grafana-b6ahaxfmhwcvb7ee.weu.grafana.azure.com](https://vibe-social-grafana-b6ahaxfmhwcvb7ee.weu.grafana.azure.com).
 - Uporaba zunanjih API-jev. Za vsakega člana v rešitev smiselno vključite en zunanji API in argumentirajte izbiro. (6T)
   - Pri mikrostoritvi `payment-webhooks` smo uporabili zunanji API [Stripe](https://stripe.com/en-gb-si), ki nam omogoča upravljanje plačevanja.
   - Pri mikrostoritvi `backend` smo uporabili zunanji API [Supabase](https://supabase.com/), ki nam omogoča avtentikacijo uporabnikov in hrambo podatkov.
@@ -127,7 +131,7 @@ TODO - dodaj slike
 - Uporaba naprednih komunikacijskih protokolov. Vključite GraphQL (Za vsakega člana skupine vključite en primer uporabe). (6T)
   - GraphQL smo uporabili pri mikrostoritvi `backend`, kjer se uporablja za komunikacijo neposredno z uporabnikom.
 - Vključite centralizirano beleženja dnevnikov. Za vsakega člana skupine pripravite en primer zanimive poizvedbe po dnevnikih. Nadalje še demonstrirajte sledenje zahtevkov pri obdelavi na različnih mikrostoritvah. (12T)
-  - Centralizirano beleženje dnevnikov smo realizirali z implementacijo Elastic Stacka. V naši Kubernetes gruči torej poganjamo orodja: Beats, Logstash, Elasticsearch in Kibana. Slednje se nahaja na naslovu [TODO](TODO).
+  - Centralizirano beleženje dnevnikov smo realizirali z implementacijo Elastic Stacka. V naši Kubernetes gruči torej poganjamo orodja: Beats, Logstash, Elasticsearch in Kibana. Slednje se nahaja na naslovu [https://portal.azure.com/#view/HubsExtension/BrowseResource/resourceType/Microsoft.OperationalInsights%2Fworkspaces](https://portal.azure.com/#view/HubsExtension/BrowseResource/resourceType/Microsoft.OperationalInsights%2Fworkspaces).
 - V eno mikrostoritev vključite izolacijo in toleranco napak. Pripravite demonstracijo mehanizmov na primeru. Ocenjuje se tudi razumevanje primera, ki ste ga vključili v vašo rešitev. (12T)
   - Pri mirkosoritvi `event-tracking` smo implementirali izolacijo in toleranco napak. V primeru, da se mikrostoritev ne odziva, se bo samodejno ponovno zagnala. Prav tako se bo samodejno ponovno zagnala v primeru, da se bo mikrostoritev sesula. Prav tako zagotavljamo visoko razpoložljivost mikrostoritve, saj je ta nameščena na Kubernetes gruči, ki se samodejno širi in krči glede na obremenitev, pri čemer sta vedno aktivni vsaj dve instanci mikrostoritve. V tej mikrostoritvi smo prav tako implementirali mehanizem za ponovno pošiljanje dogodkov, ki se niso uspešno poslali na Kafko ali v podatkovno bazo. Dodali smo tudi prekinjevalce toka, ki v primeru, da se mikrostoritev sesuje, prekinejo tok dogodkov, ki se pošiljajo na Kafko ali v podatkovno bazo. V primeru, da se mikrostoritev sesuje, se prekinjevalci toka samodejno ponovno zgradijo in ponovno vzpostavijo tok dogodkov. Za konec pa smo na ravni mikrostoritve definirali še časovno omejitev zahtevkov, ki se pošiljajo na Kafko in v podatkovno bazo. V primeru, da se zahtevki ne obdelajo v določenem času, se prekinejo in ponovno pošljejo.
 - Predstavitev (delujoč UI, primeri uporabe, funkcionalnosti) (12T)
